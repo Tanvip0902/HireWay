@@ -36,6 +36,8 @@ SavedJobPost SavedJobPost[]
   JobApplication JobApplication[]
 
 
+
+  Review Review[]
 }
 
 enum UserType {
@@ -51,6 +53,8 @@ model Company {
   logo     String
   website  String
   xAccount String?
+ 
+
 
   JobPost JobPost[]
 
@@ -58,6 +62,10 @@ model Company {
   userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+
+
+  Review Review[]
 }
 
 model JobSeeker {
@@ -180,5 +188,20 @@ model JobApplication {
   user   User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   jobPost JobPost @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }
+model Review {
+  id          Int      @id @default(autoincrement())
+  rating      Int      // Rating between 1 and 5
+  reviewText  String?  // Optional review text
+  createdAt   DateTime @default(now()) // Review creation time
+  verified    Boolean  @default(false)  // Marks whether the review is verified
+  userId      String   // Foreign key to User model (updated to match User's id type)
+  companyId   String   // Foreign key to Company model (updated to match Company's id type)
+  company     Company  @relation(fields: [companyId], references: [id]) // Relation to Company model
+  user        User     @relation(fields: [userId], references: [id]) // Relation to User model
+}
+
+
+
+
 
 

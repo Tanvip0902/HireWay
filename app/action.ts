@@ -106,6 +106,7 @@ const company = await prisma.company.findUnique({
     },
     select:{
         id: true,
+        logo: true,
         user: {
             select:{
                stripeCustomerId: true,
@@ -178,9 +179,7 @@ if(!stripeCustomerId) {
                     product_data: {
                         name: `Job Posting - ${pricingTier.days} Days`,
                         description: pricingTier.description,
-                        images:[
-                            "https://y0vezql2o0.ufs.sh/f/YUZJ27PhRCGygCfV1tXK1A7ENhMLSbnOwyltY2cRUPWe5dip",
-                        ],
+                        images: company.logo ? [company.logo] : [],
                     },
                     currency:  "USD",
                     unit_amount: pricingTier.price * 100,

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/general/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Chatbot from "@/components/general/chatbot";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
            
         {children}
           <Toaster closeButton richColors/>
+       
           <Chatbot/>
           </ThemeProvider>
         
